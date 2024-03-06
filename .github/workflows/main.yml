@@ -37,3 +37,4 @@ jobs:
           subject: 'Deployment Completed Successfully'
           body: 'Your deployment job has been completed successfully.'
           to: abinove1999@gmail.com
+
