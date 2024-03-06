@@ -21,3 +21,4 @@ jobs:
           script: |
                 whoami
                 ls -al
+                pm2 start index.js
