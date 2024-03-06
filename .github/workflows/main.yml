@@ -36,4 +36,4 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: 'Deployment Completed Successfully'
           body: 'Your deployment job has been completed successfully.'
-          to: abinove@sparkouttech.com
+          to: abinove1999@gmail.com
