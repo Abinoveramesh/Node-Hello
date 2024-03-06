@@ -11,17 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      # - name: Install PM2
-      #   run: npm install pm2 -g
-
-      # - name: Start PM2
-      #   run: |
-      #     pm2 start index.js
-      #     if [ $? -ne 0 ]; then
-      #       echo "Failed to start PM2. Exiting..."
-      #       exit 1
-      #     fi
-          
       - name: multiple command
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -30,6 +19,21 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                whoami
-                ls -al
-                
+            whoami  
+
+  notify:
+    name: Send email notification
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Send notification email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.example.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: 'Deployment Completed Successfully'
+          body: 'Your deployment job has been completed successfully.'
+          to: abinove@sparkouttech.com
