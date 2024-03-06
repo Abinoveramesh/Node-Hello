@@ -30,6 +30,6 @@ jobs:
       - name: Send notification email
         uses: dawidd6/action-send-mail@v2
         with:
-          mail to: "abinove1999@gmail.com",
-          subject: "Notification mail from jenkins",
-          body: "pipeline successfull"
+          to: "abinove1999@gmail.com"
+          subject: "Notification mail from jenkins"
+          body: "pipeline successful"
