@@ -3,7 +3,6 @@ name: CICD
 on:
   push:
     branches: [ main ]
-
 jobs:
   deploy:
     name: Deploy 
