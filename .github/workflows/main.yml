@@ -21,15 +21,15 @@ jobs:
           script: |
             whoami  
 
-  notify:
-    name: Send email notification
-    needs: deploy
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: Send notification email
-        uses: dawidd6/action-send-mail@v2
-        with:
-          to: "abinove1999@gmail.com"
-          subject: "Notification mail from jenkins"
-          body: "pipeline successful"
+  # notify:
+  #   name: Send email notification
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+  #   if: always()
+  #   steps:
+  #     - name: Send notification email
+  #       uses: dawidd6/action-send-mail@v2
+  #       with:
+  #         to: "abinove1999@gmail.com"
+  #         subject: "Notification mail from jenkins"
+  #         body: "pipeline successful"
