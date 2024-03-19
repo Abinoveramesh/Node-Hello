@@ -12,10 +12,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}"  | docker login --username ${{ secrets.DOCKERHUB_USERNAME }}  --password-stdin
 
+      - name: Deploy
+        env:
+            DOCKER_REGISTRY_CREDS: ${{ secrets.DOCKER_REGISTRY_CREDS }}
+        run: |
+            # Extract username and password from Docker credentials
+            DOCKER_USERNAME=$(echo "${DOCKER_REGISTRY_CREDS}" | cut -d':' -f1)
+            DOCKER_PASSWORD=$(echo "${DOCKER_REGISTRY_CREDS}" | cut -d':' -f2)
+            
+            # Log in to Docker Hub using credentials
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin docker.io
+            
+            # Push the Docker image to Docker Hub
+            docker push $DOCKER_BFLASK_IMAGE
+
+      
       - name: Docker Build and Run
         run: |
           TAG_NAME="img$(date +%Y%m%d%H%M%S)"
