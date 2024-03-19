@@ -26,6 +26,6 @@ jobs:
 
       - name: Docker Build
         run: |
-          sudo docker build -t img1 .
-          sudo docker run img1
+          sudo docker build -t img2 .
+          sudo docker run img2
         
