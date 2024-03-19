@@ -24,17 +24,14 @@ jobs:
             # Log in to Docker Hub using credentials
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin docker.io
             
-            # Push the Docker image to Docker Hub
-            docker push $DOCKER_BFLASK_IMAGE
+              TAG_NAME="img$(date +%Y%m%d%H%M%S)"
+              sudo docker build -t $TAG_NAME .
+              sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
+              sudo docker push abinoveramesh/$TAG_NAME
+              echo "::set-output name=tag::$TAG_NAME"
 
       
-      - name: Docker Build and Run
-        run: |
-          TAG_NAME="img$(date +%Y%m%d%H%M%S)"
-          sudo docker build -t $TAG_NAME .
-          sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
-          sudo docker push abinoveramesh/$TAG_NAME
-          echo "::set-output name=tag::$TAG_NAME"
+        
 
       
       - name: SSH into server and pull changes
