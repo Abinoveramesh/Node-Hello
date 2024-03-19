@@ -11,12 +11,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Docker image build
-        run: |
-              TAG_NAME="img$(date +%Y%m%d%H%M%S)"
-              sudo docker build -t $TAG_NAME .
+        uses: actions/checkout@v2             
               
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
@@ -27,6 +22,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/Node-Hello
+            TAG_NAME="img$(date +%Y%m%d%H%M%S)"
+            sudo docker build -t $TAG_NAME .
             git pull origin main
             
         
