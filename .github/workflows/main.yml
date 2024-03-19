@@ -17,7 +17,6 @@ jobs:
         run: |
               TAG_NAME="img$(date +%Y%m%d%H%M%S)"
               sudo docker build -t $TAG_NAME .
-              sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
               
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
