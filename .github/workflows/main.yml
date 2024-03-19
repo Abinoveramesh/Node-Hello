@@ -23,3 +23,9 @@ jobs:
           script: |
             cd /var/www/html/Node-Hello
             git pull origin main
+
+      - name: Docker Build
+        run: |
+          sudo docker build -t img1 .
+          sudo docker run img1
+        
