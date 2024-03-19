@@ -2,16 +2,18 @@ name: CICD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+
 jobs:
   deploy:
     name: Deploy 
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
       
-      - name: multiple command
+      - name: SSH into server and pull changes
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -19,18 +21,5 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-                cd /var/www/html/Node-Hello
-                git pull origin main
-
-  # notify:
-  #   name: Send email notification
-  #   needs: deploy
-  #   runs-on: ubuntu-latest
-  #   if: always()
-  #   steps:
-  #     - name: Send notification email
-  #       uses: dawidd6/action-send-mail@v2
-  #       with:
-  #         to: "abinove1999@gmail.com"
-  #         subject: "Notification mail from jenkins"
-  #         body: "pipeline successful"
+            cd /var/www/html/Node-Hello
+            git pull origin main
