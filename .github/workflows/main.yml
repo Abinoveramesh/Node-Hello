@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Docker Build and Run
+        run: |
+          TAG_NAME="img$(date +%Y%m%d%H%M%S)"
+          sudo docker build -t $TAG_NAME .
+          sudo docker run $TAG_NAME
       
       - name: SSH into server and pull changes
         uses: appleboy/ssh-action@v1.0.3
@@ -24,8 +30,4 @@ jobs:
             cd /var/www/html/Node-Hello
             git pull origin main
 
-      - name: Docker Build
-        run: |
-          sudo docker build -t img2 .
-          sudo docker run img2
         
