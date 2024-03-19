@@ -22,10 +22,10 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/Node-Hello
-            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             TAG_NAME="img$(date +%Y%m%d%H%M%S)"
             sudo docker build -t $TAG_NAME .
             sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             sudo docker push abinoveramesh/$TAG_NAME
             echo "::set-output name=tag::$TAG_NAME"
             git pull origin main
