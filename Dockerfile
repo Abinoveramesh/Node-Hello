@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:14-apache
 
 WORKDIR /usr/src/app
 
