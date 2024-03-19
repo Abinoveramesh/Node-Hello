@@ -22,7 +22,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html/Node-Hello
-            TAG_NAME="img$(date +%m%d/%H%M%S)"
+            TAG_NAME="img$(date +%H%M%S)"
             sudo docker build -t $TAG_NAME .
             sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
             git pull origin main
