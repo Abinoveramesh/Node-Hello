@@ -25,6 +25,37 @@ jobs:
             TAG_NAME="img$(date +%H%M)"
             sudo docker build -t $TAG_NAME .
             sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
+            name: CICD 
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy 
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2             
+      
+      - name: Run tests
+        run: npm test        
+      
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /var/www/html/Node-Hello
+            TAG_NAME="img$(date +%H%M)"
+            sudo docker build -t $TAG_NAME .
+            sudo docker tag $TAG_NAME abinoveramesh/$TAG_NAME
             git pull origin main
+
             
         
